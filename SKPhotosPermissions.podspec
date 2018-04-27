@@ -9,7 +9,7 @@ s.summary = "SKPhotosPermissions allows you to check Photos permissions"
 s.requires_arc = true
 
 # 2
-s.version = "0.0.1"
+s.version = "0.0.2"
 
 # 3
 s.license = { :type => "MIT", :file => "LICENSE" }
@@ -25,7 +25,7 @@ s.homepage = "https://github.com/sjsoad/PhotosPermissions"
 s.source = { :git => "https://github.com/sjsoad/PhotosPermissions.git", :tag => "#{s.version}"}
 
 # 7
-s.framework = "UIKit"
+s.framework = "Photos"
 
 # 8
 s.source_files = "PhotosPermissions/**/*.{swift}"
