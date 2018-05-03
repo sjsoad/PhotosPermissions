@@ -10,13 +10,7 @@ import UIKit
 import Photos
 import SKServicePermissions
 
-open class PhotoLibraryPermissions: NSObject {
-    
-}
-
-// MARL: - ServicePermissions -
-
-extension PhotoLibraryPermissions: ServicePermissions {
+open class PhotoLibraryPermissions: NSObject, ServicePermissions {
     
     public typealias PermissionsState = PHAuthorizationStatus
     
