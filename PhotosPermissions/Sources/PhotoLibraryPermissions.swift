@@ -6,25 +6,26 @@
 //  Copyright © 2016 Sergey Kostyan. All rights reserved.
 //
 
-import UIKit
 import Photos
-import SKServicePermissions
 
-open class PhotoLibraryPermissions: NSObject, ServicePermissions {
+public protocol PhotoLibraryPermissions {
     
-    public typealias PermissionsState = PHAuthorizationStatus
+    func requestPermissions(handler: @escaping (PHAuthorizationStatus) -> Void)
+    func permissionsState() -> PHAuthorizationStatus
+}
+
+open class DefaultPhotoLibraryPermissions: PhotoLibraryPermissions {
     
-    public func requestPermissions(handler: @escaping (PermissionsState) -> Void) {
+    public func requestPermissions(handler: @escaping (PHAuthorizationStatus) -> Void) {
         PHPhotoLibrary.requestAuthorization { [weak self] _ in
             guard let strongSelf = self else { return }
             DispatchQueue.main.async {
                 handler(strongSelf.permissionsState())
             }
-            
         }
     }
     
-    public func permissionsState() -> PermissionsState {
+    public func permissionsState() -> PHAuthorizationStatus {
         return PHPhotoLibrary.authorizationStatus()
     }
     
