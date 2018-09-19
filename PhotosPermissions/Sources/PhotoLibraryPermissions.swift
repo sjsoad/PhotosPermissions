@@ -10,13 +10,17 @@ import Photos
 
 public protocol PhotoLibraryPermissions {
     
-    func requestPermissions(handler: @escaping (PHAuthorizationStatus) -> Void)
-    func permissionsState() -> PHAuthorizationStatus
+    typealias PermissionsState = PHAuthorizationStatus
+    
+    func requestPermissions(handler: @escaping (PermissionsState) -> Void)
+    func permissionsState() -> PermissionsState
 }
 
 open class DefaultPhotoLibraryPermissions: PhotoLibraryPermissions {
     
-    public func requestPermissions(handler: @escaping (PHAuthorizationStatus) -> Void) {
+    public init() {}
+    
+    public func requestPermissions(handler: @escaping (PermissionsState) -> Void) {
         PHPhotoLibrary.requestAuthorization { _ in
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
@@ -25,7 +29,7 @@ open class DefaultPhotoLibraryPermissions: PhotoLibraryPermissions {
         }
     }
     
-    public func permissionsState() -> PHAuthorizationStatus {
+    public func permissionsState() -> PermissionsState {
         return PHPhotoLibrary.authorizationStatus()
     }
     
