@@ -17,10 +17,10 @@ public protocol PhotoLibraryPermissions {
 open class DefaultPhotoLibraryPermissions: PhotoLibraryPermissions {
     
     public func requestPermissions(handler: @escaping (PHAuthorizationStatus) -> Void) {
-        PHPhotoLibrary.requestAuthorization { [weak self] _ in
-            guard let strongSelf = self else { return }
-            DispatchQueue.main.async {
-                handler(strongSelf.permissionsState())
+        PHPhotoLibrary.requestAuthorization { _ in
+            DispatchQueue.main.async { [weak self] in
+                guard let `self` = self else { return }
+                handler(self.permissionsState())
             }
         }
     }
