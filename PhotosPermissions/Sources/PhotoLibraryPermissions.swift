@@ -17,7 +17,10 @@ open class PhotoLibraryPermissions: NSObject, ServicePermissions {
     public func requestPermissions(handler: @escaping (PermissionsState) -> Void) {
         PHPhotoLibrary.requestAuthorization { [weak self] _ in
             guard let strongSelf = self else { return }
-            handler(strongSelf.permissionsState())
+            DispatchQueue.main.async {
+                handler(strongSelf.permissionsState())
+            }
+            
         }
     }
     
